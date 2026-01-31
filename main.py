@@ -16,7 +16,7 @@ def main():
         render_project(project_dir, transformed_data)
 
     except Exception as e:
-        print(e)
+        print(f"❌ Error: ${e}")
         sys.exit(1)
 
 

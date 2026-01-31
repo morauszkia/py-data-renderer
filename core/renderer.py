@@ -4,14 +4,22 @@ from core.util import get_filepath_template
 
 
 def render_project(project_dir: Path, data: dict):
-    env = Environment(loader=FileSystemLoader(str(project_dir)))
+    template_dir = project_dir / "templates"
+    output_dir = project_dir / "output"
 
-    templates = get_filepath_template(project_dir)
+    if not output_dir.exists():
+        output_dir.mkdir()
+
+    env = Environment(loader=FileSystemLoader(str(template_dir)))
+
+    templates = get_filepath_template(template_dir)
     for t in templates:
-        print(f"Rendering template: {t.name}")
-        template = env.get_template(t)
+        print(f"Rendering template: {t.name}", end="\t")
+        template = env.get_template(t.name)
         html = template.render(**data)
 
-        with open(t.stem, "w", encoding="utf-8") as f:
+        with open(output_dir / t.stem, "w", encoding="utf-8") as f:
             f.write(html)
-            print(f"{t.stem} generated")
+        print("✔")
+
+    print("✅ All files generated")
