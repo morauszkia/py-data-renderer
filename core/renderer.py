@@ -5,6 +5,9 @@ from core.util import get_filepath_template
 
 def render_project(project_dir: Path, data: dict):
     template_dir = project_dir / "templates"
+    if not template_dir.exists():
+        template_dir = project_dir
+
     output_dir = project_dir / "output"
 
     if not output_dir.exists():

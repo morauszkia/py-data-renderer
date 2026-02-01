@@ -42,12 +42,12 @@ Please provide a data.xlsx or data.csv file"
     return project_dir / data_files[0]
 
 
-def get_filepath_template(project_dir: Path) -> List[Path]:
-    template_files = list(project_dir.glob("*.html.j2"))
+def get_filepath_template(dir: Path) -> List[Path]:
+    template_files = list(dir.glob("*.html.j2"))
 
     if len(template_files) == 0:
         raise FileNotFoundError(
-            f"Error: Template file not found in {project_dir}. \
+            f"Error: Template file not found in {dir}. \
 Please provide a Jinja template file with extension '.html.j2'"
         )
 
